@@ -123,6 +123,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3001, () => {
-  console.log("Socket.io server running on port 3001");
+server.listen(3000, () => {
+  console.log("Socket.io server running on port 3000");
 });
