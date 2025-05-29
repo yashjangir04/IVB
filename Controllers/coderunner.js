@@ -1,18 +1,13 @@
-const express = require("express");
-const http = require("http");
 const { Server } = require("socket.io");
 
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "*", // Change this to your frontend origin for security
-  },
-});
-
-// In-memory store for rooms
 const rooms = {};
 
+function initSocket(server) {
+  const io = new Server(server, {
+    cors: {
+      origin: "*", // Change to frontend domain for security
+    },
+  });
 io.on("connection", (socket) => {
   console.log(`Socket connected: ${socket.id}`);
 
@@ -122,7 +117,6 @@ io.on("connection", (socket) => {
     }
   });
 });
+}
 
-server.listen(3000, () => {
-  console.log("Socket.io server running on port 3000");
-});
+module.exports = { initSocket };

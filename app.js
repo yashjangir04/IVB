@@ -8,10 +8,14 @@ const { Server } = require("socket.io");
 const { stdin } = require("process");
 const { initSocket } = require("./Controllers/coderunner.js");
 const ensureAuthenticated = require("./Middlewares/Auth.js");
+const server = http.createServer(app);  // Create HTTP server
+
 const activeRooms = {} ;
 
 require("dotenv").config();
 require("./Models/db");
+
+initSocket(server);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -83,6 +87,6 @@ app.get("/room/check", (req, res) => {
   return res.json({ exists: false, isExpired: true });
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log("Server Running...");
 });
